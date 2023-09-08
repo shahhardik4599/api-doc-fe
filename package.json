@@ -17,20 +17,22 @@
   },
   "homepage": "https://github.com/shahhardik4599/api-doc-fe#readme",
   "dependencies": {
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "ejs-compiled-loader": "^3.1.0",
     "fs": "^0.0.1-security",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  },
-  "devDependencies": {
-    "ejs-compiled-loader": "^3.1.0",
-    "html-webpack-plugin": "^5.5.3"
   },
   "browser": {
     "fs": false,
     "path": false,
     "os": false
-  },
-  "sideEffects": false
+  }
 }

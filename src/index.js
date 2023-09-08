@@ -1,87 +1,108 @@
 import ejs from 'ejs';
+import chatBoxTemplate from "./templates/chat-box.ejs.html";
+import userMessageTemplate from "./templates/user-message.ejs.html";
+import botMessageTemplate from "./templates/bot-message.ejs.html";
+import botMessageTemplate2 from "./templates/bot-message2.ejs.html";
+import "./css/styles.css";
 
-document.addEventListener("DOMContentLoaded", function () {
-    const chatbotButton = document.getElementById("chatbot-button");
-    const chatWindow = document.getElementById("chatbot-popup");
-    const chatBox = document.getElementById("chat-box");
-    const userInput = document.getElementById("user-input");
-    const sendButton = document.getElementById("send-button");
-    const errorMessage = document.getElementById("error-message");
-
-    // Function to render an EJS template with dynamic data
-    function renderTemplate(templateName, data) {
-        const template = require(`./templates/${templateName}.ejs`);
-        return ejs.render(template, data);
+export default class DocAiAssist {
+    constructor(docElement, params) {
+        this.params = params || {
+            model_type: "GPT4All"
+        };
+        this.init(docElement)
     }
 
-    // Function to add a message to the chat box
-    function addMessage(sender, messageText, messageClass) {
-        const data = {
-            messageText,
-            messageClass,
+    init(domElement = document.body) {
+        const chatbox = ejs.render(chatBoxTemplate);
+        domElement.innerHTML += chatbox;
+
+        const chatbotButton = domElement.querySelector(".chatbot-button");
+        const chatbotPopup = domElement.querySelector(".chatbot-popup");
+        const chatBox = domElement.querySelector(".chat-box");
+        const userInput = domElement.querySelector(".user-input");
+        const sendButton = domElement.querySelector(".send-button");
+        const errorMessage = domElement.querySelector(".error-message");
+
+        const addUserMessage = (message) => {
+            const userMessage = ejs.render(userMessageTemplate, { message });
+            chatBox.innerHTML += userMessage;
         };
 
-        const messageHTML = renderTemplate("message", data);
-        chatBox.innerHTML += messageHTML;
-    }
+        const addBotMessage1 = (message1) => {
+            const botMessage1 = ejs.render(botMessageTemplate, { message1 });
+            chatBox.innerHTML += botMessage1;
+        };
 
-    // Toggle chat window visibility when the chatbot button is clicked
-    chatbotButton.addEventListener("click", function () {
-        if (chatWindow.style.display === "none" || chatWindow.style.display === "") {
-            chatWindow.style.display = "block";
-        } else {
-            chatWindow.style.display = "none";
-        }
-    });
+        let chatbotOpen = false;
 
-    // Send user message to the chat
-    function sendMessage() {
-        const userMessage = userInput.value.trim();
+        // Function to toggle chatbot popup
+        const toggleChatbotPopup = () => {
+            chatbotOpen = !chatbotOpen;
+            if (chatbotOpen) {
+                chatbotPopup.style.display = "block";
+            } else {
+                chatbotPopup.style.display = "none";
+            }
+        };
 
-        if (userMessage !== "") {
-            addMessage("You", userMessage, "user-message");
+        chatbotButton.addEventListener("click", () => {
+            // Toggle the chatbot popup
+            toggleChatbotPopup();
+        });
 
-            // Display the loader
-            addMessage("ChatBot", "Loading...", "bot-message");
-
-            // Simulate an API response after a delay (replace with actual API call)
-            setTimeout(() => {
-                const botResponse = "This is a sample response from the chatbot.";
-                addMessage("ChatBot", botResponse, "bot-message");
-            }, 1000);
-
-            userInput.value = "";
+        sendButton.addEventListener("click", async () => {
+            const userMessage = userInput.value.trim();
             sendButton.disabled = true;
+
+            if (userMessage !== "") {
+                addUserMessage(userMessage);
+
+                // Create the loader element
+                const loader = document.createElement('div');
+                loader.className = 'loader';
+                chatBox.appendChild(loader);
+
+                try {
+                    let apiUrl;
+                    if (this.params.model_type === "GPT4All") {
+                        apiUrl = `http://127.0.0.1:8000/api/web/generate?query=${userMessage}&model_type=GPT4All`;
+                    } else if (this.params.model_type === "ChatOpenAI") {
+                        apiUrl = `http://127.0.0.1:8000/api/web/generate?query=${userMessage}&model_type=ChatOpenAI`;
+                    }
+
+                    const apiResponse = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: [],
+                    });
+
+                    if (apiResponse.ok) {
+                        const responseData = await apiResponse.json();
+                        sendButton.disabled = false;
+                        const botResponse = responseData.message;
+
+                        // Remove the loader
+                        chatBox.removeChild(loader);
+
+                        addBotMessage1(botResponse);
+                    } else {
+                        console.error('API request failed');
+                    }
+                } catch (error) {
+                    console.error('API request error', error);
+                }
+
+                userInput.value = "";
+            } else {
+                errorMessage.textContent = "Please enter a message.";
+            }
+        });
+
+        // Event handler for user input
+        userInput.addEventListener("input", () => {
             errorMessage.textContent = "";
-        }
+            sendButton.disabled = userInput.value.trim() === "";
+        });
+
     }
-
-    // Event listener for sending a message when the send button is clicked
-    sendButton.addEventListener("click", function () {
-        sendMessage();
-    });
-
-    // Event listener for handling user input
-    userInput.addEventListener("input", function () {
-        const userMessage = userInput.value.trim();
-
-        if (userMessage === "") {
-            sendButton.disabled = true;
-            errorMessage.textContent = "Message cannot be empty.";
-        } else if (/^\s+$/.test(userMessage)) {
-            sendButton.disabled = true;
-            errorMessage.textContent = "Message cannot contain only whitespace.";
-        } else {
-            sendButton.disabled = false;
-            errorMessage.textContent = "";
-        }
-    });
-
-    // Event listener for handling user input using the Enter key
-    userInput.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault(); // Prevent the default form submission
-            sendMessage(); // Call sendMessage function when Enter is pressed
-        }
-    });
-});
+};

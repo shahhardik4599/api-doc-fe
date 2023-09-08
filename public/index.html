@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./placeholder.css">
+</head>
+
+<body>
+    <div class="placeholders">
+        <div>
+            <div class="model-name">Model: GPT4ALL</div>
+            <div id="placeholder1" class="placeholder"></div>
+        </div>
+        <div>
+            <div class="model-name">Model: ChatOpenAI</div>
+            <div id="placeholder2" class="placeholder"></div>
+        </div>
+    </div>
+    <script src="http://localhost:8080/bundle.js"></script>
+    <script type="text/javascript">
+        (() => {
+            new DocAiAssist(document.getElementById('placeholder1'), { model_type: "GPT4All" });
+            new DocAiAssist(document.getElementById('placeholder2'), { model_type: "ChatOpenAI" })
+            //DocAiAssist.init(document.getElementById('placeholder'));
+        })();
+
+    </script>
+</body>
+
+</html>

@@ -1,40 +1,37 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     mode: 'development',
     output: {
+        library: {
+            name: "DocAiAssist",
+            type: "umd",
+            export: "default"
+        },
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
             {
-                exclude: ["/node_modules/"],
-                test: /\.ejs$/,
-                loader: 'ejs-compiled-loader',
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: { loader: 'html-loader' }
             }
         ],
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/templates/template.ejs',
-        }),
-    ],
     resolve: {
         fallback: {
-            path: false
+            path: false,
+            fs: false
         }
     },
-    externals: ["fs"],
-    devServer: {
-        historyApiFallback: true
-    }
+    plugins: [],
+    target: 'web',
 };
-
-

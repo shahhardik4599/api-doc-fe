@@ -1,0 +1,15 @@
+.placeholders {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+}
+
+.placeholder {
+    position: relative;
+    height: 500px;
+    width: 300px;
+}
+
+.model-name {
+    margin: 5px;
+}
