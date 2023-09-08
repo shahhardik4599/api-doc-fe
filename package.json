@@ -1,0 +1,36 @@
+{
+  "name": "ejs-templater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shahhardik4599/api-doc-fe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shahhardik4599/api-doc-fe/issues"
+  },
+  "homepage": "https://github.com/shahhardik4599/api-doc-fe#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "fs": "^0.0.1-security",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "devDependencies": {
+    "ejs-compiled-loader": "^3.1.0",
+    "html-webpack-plugin": "^5.5.3"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
+  "sideEffects": false
+}
