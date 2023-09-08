@@ -1,15 +1,25 @@
+.chat-bots {
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    line-height: 18px;
+}
+
 .placeholders {
     display: flex;
     gap: 50px;
     width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 
 .placeholder {
     position: relative;
-    height: 500px;
+    height: 535px;
     width: 300px;
 }
 
 .model-name {
-    margin: 5px;
+    margin-bottom: 20px;
 }

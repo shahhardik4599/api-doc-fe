@@ -3,6 +3,9 @@
     height: 100%;
     width: 100%;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 .chatbot-button {
@@ -14,11 +17,17 @@
     border-radius: 5px;
     font-weight: bold;
     margin-bottom: 10px;
+    order: 2;
+    max-width: 70px;
+    margin-top: 20px;
 }
 
 .chatbot-popup {
-    display: none;
+    /* display: none; */
     /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    order: 1;
     padding: 10px;
     bottom: -17px;
     right: -15px;
@@ -26,26 +35,8 @@
     background-color: #fff;
     border: 1px solid #ddd;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.model-names {
-    display: flex;
-    gap: 10px;
-    padding: 8px;
-    justify-content: center;
-    align-items: center;
-}
-
-.model-name1 {
-    color: black;
-    width: 100%;
-    text-align: center;
-}
-
-.model-name2 {
-    color: black;
-    width: 100%;
-    text-align: center;
+    border-radius: 10px;
+    max-height: 438px;
 }
 
 /* .chat-boxes {
@@ -60,7 +51,9 @@
     padding: 10px;
     max-height: 350px;
     margin-bottom: 10px;
-    background-color: #f5f5f5;
+    background-color: #cecccc;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 /* .chat-box-2 {
@@ -74,20 +67,46 @@
 } */
 
 .user-message {
-    background-color: #d6cd28;
+    background-color: rgb(229, 238, 255);
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 30px;
     word-wrap: break-word;
+    color: rgb(0, 0, 0);
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 18px;
+    border-bottom-right-radius: 0px;
 }
 
 .bot-message {
-    background-color: #32d25d;
-    color: #fff;
+    background-color: rgb(242, 242, 242);
+    color: rgb(0, 0, 0);
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 10px;
+    margin-left: 30px;
+    margin-top: 5px;
     word-wrap: break-word;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 18px;
+    border-bottom-left-radius: 0px;
+}
+
+.sender-name {
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.chatbot-name {
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 18px;
+    text-align: end;
 }
 
 .input-and-button {
@@ -106,6 +125,8 @@
     border-radius: 5px;
     max-height: 200px;
     min-height: 50px;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
 }
 
 .send-button {
@@ -145,4 +166,16 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.close-button {
+    position: absolute;
+    top: -1px;
+    right: -9px;
+    font-size: 20px;
+    background-color: rgb(132, 131, 131);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 100%;
 }

@@ -2,7 +2,6 @@ import ejs from 'ejs';
 import chatBoxTemplate from "./templates/chat-box.ejs.html";
 import userMessageTemplate from "./templates/user-message.ejs.html";
 import botMessageTemplate from "./templates/bot-message.ejs.html";
-import botMessageTemplate2 from "./templates/bot-message2.ejs.html";
 import "./css/styles.css";
 
 export default class DocAiAssist {
@@ -18,6 +17,7 @@ export default class DocAiAssist {
         domElement.innerHTML += chatbox;
 
         const chatbotButton = domElement.querySelector(".chatbot-button");
+        const closeButton = domElement.querySelector(".close-button");
         const chatbotPopup = domElement.querySelector(".chatbot-popup");
         const chatBox = domElement.querySelector(".chat-box");
         const userInput = domElement.querySelector(".user-input");
@@ -47,6 +47,10 @@ export default class DocAiAssist {
         };
 
         chatbotButton.addEventListener("click", () => {
+            // Toggle the chatbot popup
+            toggleChatbotPopup();
+        });
+        closeButton.addEventListener("click", () => {
             // Toggle the chatbot popup
             toggleChatbotPopup();
         });
