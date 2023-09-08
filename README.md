@@ -23,7 +23,7 @@ You can see chatbot preview on http://localhost:8080/
 
 - Make sure to update the src attribute of the <script> tag to point to the correct location of your bundled bundle.js file if it's hosted on a different server.
 
-## `DocAiAssist` Constructor
+# `DocAiAssist` Constructor
 
 The `DocAiAssist` class is the core component of this chatbot implementation. It is used to create and initialize an instance of the chatbot within your web application. Below, you'll find information about the constructor parameters and how to use it.
 
