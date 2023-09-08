@@ -20,7 +20,6 @@ You can see chatbot preview on http://localhost:8080/
 
 # To run this chatbot on other website
 - Copy the script inside index.html file and paste it in your code
-```
 
 - Make sure to update the src attribute of the <script> tag to point to the correct location of your bundled bundle.js file if it's hosted on a different server.
 
